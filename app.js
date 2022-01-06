@@ -1,9 +1,19 @@
 //jshint esversion:6
 
+// require express module
 const express = require("express");
-const bodyParser = require("body-parser");
+
+// a middleware in order to read the "body" of an incoming JSON
+const bodyParser = require("body-parser"); 
+
+//EJS is a simple templating language that lets you generate HTML markup with plain JavaScript. 
 const ejs = require("ejs");
+
 const _ = require("lodash");
+
+// Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment. 
+// Mongoose is a JavaScript object-oriented programming library that creates a connection between 
+// MongoDB and the Express web application framework.
 const mongoose = require("mongoose");
 
 
@@ -14,10 +24,15 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 
 const app = express();
 
+//view engine: template engine enables to use static template files, ejs in this case.
+//The ejs files in views folder 
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static("public"));
 
+//Returns middleware that only parses JSON and only looks at requests where the Content-Type header matches the type option. 
+app.use(bodyParser.urlencoded({extended: true}));
+
+
+app.use(express.static("public"));
 
 
 mongoose.connect('mongodb://localhost:27017/blogDB');
@@ -75,8 +90,14 @@ app.post("/compose", function(req, res){
 
 
 
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
   console.log("Server started on port 3000");
 });
+
+
+
+
+
+//Note: Middleware is software which lies between an operating system and the applications running on it.
 
 
